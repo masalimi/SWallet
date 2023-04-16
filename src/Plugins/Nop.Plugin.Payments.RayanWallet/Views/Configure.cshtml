@@ -1,0 +1,60 @@
+﻿@model Nop.Plugin.Payments.RayanWallet.Models.ConfigurationModel
+@{
+    Layout = "_ConfigurePlugin";
+}
+@await Component.InvokeAsync("StoreScopeConfiguration")
+<form asp-controller="PaymentRayanWallet" asp-action="Configure" method="post">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>@T("Plugins.Payments.RayanWallet.Instructions")</p>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="BaseUrl_OverrideForStore" asp-input="BaseUrl" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="BaseUrl" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="BaseUrl" />
+                        <span asp-validation-for="BaseUrl"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="Authorization_OverrideForStore" asp-input="Authorization" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="Authorization" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-textarea asp-for="Authorization" />
+                        <span asp-validation-for="Authorization"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="RefCode_OverrideForStore" asp-input="RefCode" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="RefCode" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="RefCode" />
+                        <span asp-validation-for="RefCode"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="UseToman_OverrideForStore" asp-input="UseToman" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="UseToman" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="UseToman" />
+                        <span asp-validation-for="UseToman"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input type="submit" name="save" class="btn bg-primary" value="@T("Admin.Common.Save")" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

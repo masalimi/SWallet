@@ -1,0 +1,88 @@
+﻿@model Nop.Plugin.Payments.RayanWallet.Models.WalletCustomerHistoryModel
+@using Nop.Web.Extensions
+
+@{ Layout = "_ColumnsTwo";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Account").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-reward-points-page"); }
+@section left
+{
+    @*  @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.RewardPoints })*@
+}
+<div class="page account-page reward-points-page">
+    <div class="page-title">
+        <h1>@T("Account.MyAccount") - @T("Account.WalletHistory")</h1>
+    </div>
+    <div class="page-body">
+        <div class="reward-points-overview">
+            <div class="section reward-points-history">
+                <div class="title">
+                    <strong>@T("Wallet.History")</strong>
+                </div>
+                @if (Model.WalletHistory.Count > 0)
+                {
+    <div class="table-wrapper">
+        <table class="data-table">
+            <colgroup>
+                <col width="20%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col />
+                <col width="20%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="title">
+                        @T("Plugins.Payments.RayanWallet.OrderNo")
+                    </th>
+                    <th class="">
+                        @T("Plugins.Payments.RayanWallet.TransferTypeWallet")
+                    </th>
+                    <th class="">
+                        @T("Plugins.Payments.RayanWallet.Amount")
+                    </th>
+                    <th class="date">
+                        @T("Plugins.Payments.RayanWallet.CreateDate")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.WalletHistory.Count; i++)
+                {
+                    var item = Model.WalletHistory[i];
+    <tr @(i % 2 == 0 ? Html.Raw(" class=\"odd\"") : Html.Raw(" class=\"even\""))>
+    <td class="date">
+        @item.OrderNo
+    </td>
+    <td class="points">
+        @item.TransferTypeWallet
+    </td>
+    <td class="points-balance">
+        @item.Amount
+    </td>
+    <td class="message">
+        @item.CreateDate
+    </td>
+
+</tr>                }
+            </tbody>
+        </table>
+    </div> var pager = Html.Pager(Model.PagerModel);
+    if (!string.IsNullOrEmpty(pager.ToHtmlString()))
+    {
+<div class="pager">
+    @pager
+</div> }
+}
+else
+{
+<div class="no-data">
+    @T("RewardPoints.NoHistory")
+</div>      }
+            </div>
+        </div>
+    </div>
+</div>

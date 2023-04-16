@@ -1,0 +1,47 @@
+﻿@using Nop.Plugin.Payments.Wallet.Models
+@using Nop.Web.Framework.Models.DataTables
+@model Nop.Plugin.Payments.Wallet.Models.WalletCustomerHistoryModel
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+
+<form asp-controller="WalletCustomerHistory" asp-action="WalletCustomerList" method="post" id="customer-history-wallet-form">
+    @await Html.PartialAsync("Table", new DataTablesModel
+    {
+    Name = "payment-wallet-grid",
+    Filters = new List<FilterParameter>
+        {
+        },
+        ColumnCollection = new List<ColumnProperty>
+            {
+            new ColumnProperty(nameof(WalletCustomerHistoryModel.OrderNo))
+            {
+            Title = T("Plugins.Payments.RayanWallet.OrderNo").Text,
+            Width = "200"
+            },
+            new ColumnProperty(nameof(WalletCustomerHistoryModel.Amount))
+            {
+            Title = T("Plugins.Payments.RayanWallet.Amount").Text,
+            Width = "200"
+            },
+            new ColumnProperty(nameof(WalletCustomerHistoryModel.CreateDate))
+            {
+            Title = T("Plugins.Payments.RayanWallet.CreateDate").Text,
+            Width = "200"
+            },
+            new ColumnProperty(nameof(WalletCustomerHistoryModel.StoreName))
+            {
+            Title = T("Plugins.Payments.RayanWallet.StoreName").Text,
+            Width = "400",
+            },
+            new ColumnProperty(nameof(WalletCustomerHistoryModel.TransferTypeWallet))
+            {
+            Title = T("Plugins.Payments.RayanWallet.TransferTypeWallet").Text,
+            Width = "400",
+            },
+
+            }
+            });
+
+</form>

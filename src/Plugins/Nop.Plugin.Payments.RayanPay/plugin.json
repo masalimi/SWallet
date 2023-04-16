@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Payment methods",
+  "FriendlyName": "RayanPay",
+  "SystemName": "Payments.RayanPay",
+  "Version": "1.4",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "Tooraj Valaee",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Payments.RayanPay.dll",
+  "Description": "This plugin allows paying with RayanPay Gateway"
+}

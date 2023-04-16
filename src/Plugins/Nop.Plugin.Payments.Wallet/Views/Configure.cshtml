@@ -1,0 +1,102 @@
+﻿@using Nop.Plugin.Payments.Wallet.Models
+@using Nop.Web.Framework.Models.DataTables
+@model Nop.Plugin.Payments.Wallet.Models.ConfigurationModel
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@await Component.InvokeAsync("StoreScopeConfiguration")
+
+<form asp-controller="PaymentWallet" asp-action="Configure" method="post" id="payment-wallet-form">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>@T("Plugins.Payments.Wallet.Instructions")</p>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="UseToman_OverrideForStore" asp-input="UseToman" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="UseToman" />
+                    </div>
+                    <div class="col-md-9">
+                        <input type="checkbox" value="@Model.UseToman" checked="@Model.UseToman" />
+                        <nop-override-store-checkbox asp-for="UseToman" asp-items="Model.UseToman" />
+                        <span asp-validation-for="UseToman"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input type="submit" name="save" class="btn bg-primary" value="@T("Admin.Common.Save")" />
+                        @*<button type="submit" id="btnAddNewRecord" class="btn btn-primary"
+                                onclick="javascript:OpenWindow('@Url.Action("SaveWalletUserData", "PaymentWallet", new {btnId = "btnRefresh", formId = "payment-bywallet-form"})', 800, 800, true);return false;">
+                            @T("Plugins.Shipping.FixedByWeightByTotal.AddRecord")
+                        </button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*@await Html.PartialAsync("Table", new DataTablesModel
+                    {
+                        Name = "payment-wallet-grid",
+                        UrlRead = new DataUrl("WalletPaymentTotalList", "PaymentWallet", null),
+                        UrlDelete = new DataUrl("DeleteWalletPaymentUser", "PaymentWallet", null),
+                        SearchButtonId = "search-payment-wallet-records",
+                        Length = Model.PageSize,
+                        LengthMenu = Model.AvailablePageSizes,
+                        Filters = new List<FilterParameter>
+                        {
+                        },
+                        ColumnCollection = new List<ColumnProperty>
+                        {
+                            new ColumnProperty(nameof(WalletUserDataModel.Name))
+                            {
+                                Title = T("Plugins.Payment.Wallet.Fields.Name").Text,
+                                Width = "200"
+                            },
+                            new ColumnProperty(nameof(WalletUserDataModel.Family))
+                            {
+                                Title = T("Plugins.Payment.Wallet.Fields.Family").Text,
+                                Width = "200"
+                            },
+                            new ColumnProperty(nameof(WalletUserDataModel.CardNo))
+                            {
+                                Title = T("Plugins.Payment.Wallet.Fields.CardNo").Text,
+                                Width = "200"
+                            },
+                            new ColumnProperty(nameof(WalletUserDataModel.Cvv2))
+                            {
+                                Title = T("Plugins.Payment.Wallet.Fields.Cvv2").Text,
+                                Width = "400",
+                            },
+
+                            new ColumnProperty(nameof(WalletUserDataModel.Id))
+                            {
+                                Title = T("Admin.Common.Edit").Text,
+                                ClassName = NopColumnClassDefaults.Button,
+                                Width = "100",
+                                Render = new RenderCustom("renderColumnEdit")
+                            },
+                            new ColumnProperty(nameof(WalletUserDataModel.Id))
+                            {
+                                Title = T("Admin.Common.Delete").Text,
+                                ClassName = NopColumnClassDefaults.Button,
+                                Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+                                Width = "100"
+                            }
+                        }
+                    })*@
+<script>
+
+    function renderColumnEdit(data, type, row, meta) {
+        return '<button onclick=\"javascript:OpenWindow(\'@Url.Action("EditWalletPaymentUser", "PaymentWallet")?id=' +
+            data +
+            '&btnId=btnRefresh&formId=payment-wallet-form\', 800, 800, true); return false;\" class="btn btn-default"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</button>';
+    }
+
+</script>
+</form>
+<nop-alert asp-alert-id="saveModeAlert" asp-alert-message="@T("Admin.Common.Alert.Save.Error")" />
+
+@*@await Html.PartialAsync("~/Plugins/Payments.Wallet/Views/WalletUserDataInfo.cshtml")*@
